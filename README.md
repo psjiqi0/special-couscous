@@ -1,6 +1,6 @@
+更新软件软可以看架构核心
 ```python
-def hello_world():
-    print("opkg update")
+opkg update
 
 
 
