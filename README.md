@@ -2,5 +2,7 @@
 ```python
 opkg update
 
-
+修改openwrt页面端口
+```python
+vi /etc/config/uhttpd
 
