@@ -1,11 +1,10 @@
-更新软件软可以看架构核心
-```python
-opkg update
-
 ## 更新软件包
 
-你可以使用以下命令更新软件包：
+更新软件包可以查看架构核心。
 
 ```bash
 opkg update
 
+修改OpenWrt页面端口
+
+vi /etc/config/uhttpd
