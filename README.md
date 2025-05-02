@@ -8,3 +8,10 @@
 
 ```bash
 pip install -r requirements.txt
+
+
+
+
+
+opkg update
+更新软件软可以看架构核心
