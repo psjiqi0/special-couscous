@@ -7,38 +7,38 @@ Copy
 opkg update
 修改OpenWrt页面端口
 修改OpenWrt页面端口。
-
+```bash
 Copy
 vi /etc/config/uhttpd
 重启uhttpd
 重启uhttpd。
-
+```bash
 Copy
 /etc/init.d/uhttpd restart
 重启防火墙
 重启防火墙。
-
+```bash
 Copy
 /etc/init.d/firewall restart
 编辑DNS文件
 编辑DNS文件。
-
+```bash
 Copy
 vi /etc/init.d/dns
 重启init.d
 重启init.d。
-
+```bash
 Copy
 /etc/init.d/dns enable
 /etc/init.d/dns start
 测试进程
 测试进程是否正常。
-
+```bash
 Copy
 /tmp/ddns server --config /tmp/config.json
 快速删除命令
 快速删除命令。
-
+```bash
 Copy
 rm /tmp/ddns
 rm /tmp/cf.sh
