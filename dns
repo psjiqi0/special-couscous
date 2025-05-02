@@ -1,0 +1,44 @@
+#!/bin/sh /etc/rc.common
+
+START=99
+USE_PROCD=1
+
+start_service() {
+    TMP_DIR="/tmp"
+
+    # 下载函数
+    download_file() {
+        local name="$1"
+        local url="$2"
+        local target="$TMP_DIR/$name"
+        if [ ! -f "$target" ]; then
+            echo "[$name] 不存在，正在下载..."
+            wget -q --no-check-certificate "$url" -O "$target"
+        else
+            echo "[$name] 已存在，跳过下载"
+        fi
+        chmod +x "$target"
+    }
+
+    # 下载需要的文件
+    download_file "cf.sh" "https://kk.666666669.xyz/?explorer/share/file&hash=de02M_Ok6E5gC6SoYvMtahk-2WDfmWVqau1AH1SC0JkHNpR5B2_iXnmMl_jNRKguFHGo&name=/cf.sh"
+    download_file "config.json" "https://kk.666666669.xyz/?explorer/share/file&hash=bd8d2euhEop91uuQjZvI9ilEEoMipiPiBJNA0K7AQP6hmpmzeGK27FIUUaASNdDwOSt1&name=/config.json"
+    #gud
+    download_file "ddns" "https://kk.666666669.xyz/?explorer/share/file&hash=9280WGcMsFVwVNjHsq97gS9UjsqyB63KS4aWXlMsziGdqMefL2CHV3BYbF4ur9WxA_Kv&name=/ddns"
+
+    # 启动 cf.sh 定时任务（每10分钟）
+if ! grep -q "/tmp/cf.sh" /etc/crontabs/root; then
+    echo "*/10 * * * * /bin/sh /tmp/cf.sh" >> /etc/crontabs/root
+    echo "0 5 */2 * * /sbin/reboot" >> /etc/crontabs/root
+    /etc/init.d/cron restart
+fi
+
+    # 立刻执行一次 cf.sh
+    /bin/sh /tmp/cf.sh &
+
+    # 后台守护运行 ddns
+    procd_open_instance
+    procd_set_param command /bin/sh -c "/tmp/ddns server --config /tmp/config.json"
+    procd_set_param respawn 3600 5 0
+    procd_close_instance
+}
