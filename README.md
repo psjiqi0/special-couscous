@@ -2,7 +2,10 @@
 ```python
 opkg update
 
-#修改openwrt页面端口
-```python
-vi /etc/config/uhttpd
+## 更新软件包
+
+你可以使用以下命令更新软件包：
+
+```bash
+opkg update
 
